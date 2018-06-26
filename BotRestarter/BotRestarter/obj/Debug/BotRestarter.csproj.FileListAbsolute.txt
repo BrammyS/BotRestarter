@@ -1,0 +1,7 @@
+C:\GitHub Repository\DiscordBotRestarter\BotRestarter\BotRestarter\bin\Debug\BotRestarter.exe.config
+C:\GitHub Repository\DiscordBotRestarter\BotRestarter\BotRestarter\bin\Debug\BotRestarter.exe
+C:\GitHub Repository\DiscordBotRestarter\BotRestarter\BotRestarter\bin\Debug\BotRestarter.pdb
+C:\GitHub Repository\DiscordBotRestarter\BotRestarter\BotRestarter\obj\Debug\BotRestarter.csprojAssemblyReference.cache
+C:\GitHub Repository\DiscordBotRestarter\BotRestarter\BotRestarter\obj\Debug\BotRestarter.csproj.CoreCompileInputs.cache
+C:\GitHub Repository\DiscordBotRestarter\BotRestarter\BotRestarter\obj\Debug\BotRestarter.exe
+C:\GitHub Repository\DiscordBotRestarter\BotRestarter\BotRestarter\obj\Debug\BotRestarter.pdb
