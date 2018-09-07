@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BotRestarter
@@ -14,7 +11,7 @@ namespace BotRestarter
         private static void Main()
             => new Program().StartAsync().GetAwaiter().GetResult();
 
-        public async Task StartAsync()
+        private async Task StartAsync()
         {
             while (true)
             {
@@ -22,7 +19,7 @@ namespace BotRestarter
                 {
                     GetFiles();
                     StartPrograms();
-                    await Task.Delay(1797500);
+                    await Task.Delay(Config.ConfigData.RestartTime * 1000 * 60);
                 }
                 catch (Exception e)
                 {
@@ -36,12 +33,13 @@ namespace BotRestarter
             filePaths = Directory.GetFiles("bots", "*.lnk", SearchOption.AllDirectories);
             foreach (var file in filePaths)
             {
-                Console.WriteLine(file);
+                Console.WriteLine($"{DateTime.Now:G} : Found {file}!");
             }
         }
 
         private void StartPrograms()
         {
+            Console.WriteLine($"{DateTime.Now:G} : Restart time = {Config.ConfigData.RestartTime} minuten ({Config.ConfigData.RestartTime * 1000 * 60}ms)");
             foreach (var file in filePaths)
             {
                 Console.WriteLine($"{DateTime.Now:G} : Starting {file}");
