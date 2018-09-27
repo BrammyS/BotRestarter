@@ -5,8 +5,8 @@ namespace BotRestarter
 {
     public class Config
     {
-        private const string ConfigFolder = "../Color-chan/Data/BotData";
-        private const string ConfigFile = "Config.json";
+        private const string ConfigFolder = "../Color-chan/Configs";
+        private const string ConfigFile = "ConfigData.json";
 
         public static RestartConfig ConfigData;
 
