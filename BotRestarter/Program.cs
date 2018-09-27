@@ -19,6 +19,11 @@ namespace BotRestarter
                 {
                     GetFiles();
                     StartPrograms();
+                    if (Config.ConfigData.RestartTime < 10)
+                    {
+                        Console.WriteLine("FFHKJFHSKFSHFKUAHYUSIDHKJOZIYZ");
+                        await Task.Delay(-1);
+                    }
                     await Task.Delay(Config.ConfigData.RestartTime * 1000 * 60);
                 }
                 catch (Exception e)
@@ -43,7 +48,13 @@ namespace BotRestarter
             foreach (var file in filePaths)
             {
                 Console.WriteLine($"{DateTime.Now:G} : Starting {file}");
-                Process.Start(file);
+                var startInfo = new ProcessStartInfo
+                {
+                    CreateNoWindow = false,
+                    WindowStyle = ProcessWindowStyle.Minimized,
+                    FileName = file
+                };
+                Process.Start(startInfo);
             }
         }
     }
