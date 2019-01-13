@@ -56,7 +56,9 @@ namespace BotRestarter
                     }
                 };
                 botProcess.Start();
+                Log($"{botFilePath} opened.");
                 botProcess.WaitForExit();
+                Log($"{botFilePath} closed.");
             }
         }
 
