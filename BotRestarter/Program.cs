@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -17,7 +16,7 @@ namespace BotRestarter
         private async Task StartAsync()
         {
             var botFilePaths = GetFiles();
-
+            Log(TimeSpan.FromMilliseconds(int.MaxValue).TotalDays.ToString());
             if (!botFilePaths.Any())
             {
                 await ShowErrorMessageAsync("No bots where found!").ConfigureAwait(false);
@@ -84,7 +83,7 @@ namespace BotRestarter
         private async Task ShowErrorMessageAsync(string message)
         {
             Log(message, ConsoleColor.Red);
-            await Task.Delay(30000).ConfigureAwait(false);
+            await Task.Delay(TimeSpan.FromSeconds(30)).ConfigureAwait(false);
         }
 
 
