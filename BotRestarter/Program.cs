@@ -13,15 +13,14 @@ namespace BotRestarter
         private static void Main()
             => new Program().StartAsync().GetAwaiter().GetResult();
 
+
+        /// <summary>
+        /// Starts all the threads that will start/restart all the bots.
+        /// </summary>
         private async Task StartAsync()
         {
             var botFilePaths = GetFiles();
-            Log(TimeSpan.FromMilliseconds(int.MaxValue).TotalDays.ToString());
-            if (!botFilePaths.Any())
-            {
-                await ShowErrorMessageAsync("No bots where found!").ConfigureAwait(false);
-                return;
-            } 
+            if (!botFilePaths.Any()) ShowErrorMessage("No bots where found!");
 
             // Loop trough all the bots and start them.
             foreach (var bot in botFilePaths)
@@ -30,6 +29,7 @@ namespace BotRestarter
                 thread.Start();
             }
 
+            // Await the task so the program doesn't close. 
             await Task.Delay(-1).ConfigureAwait(false);
         }
 
@@ -42,6 +42,7 @@ namespace BotRestarter
         private void StartBot(string botFilePath)
         {
 
+            // Keep restating the bot if it closes.
             while (true)
             {
                 var botProcess = new Process
@@ -59,6 +60,7 @@ namespace BotRestarter
                 botProcess.WaitForExit();
                 Log($"{botFilePath} closed.");
             }
+            // ReSharper disable once FunctionNeverReturns
         }
 
 
@@ -70,6 +72,11 @@ namespace BotRestarter
         /// </returns>
         private string[] GetFiles()
         {
+
+            // If Bots directory doesn't exist, create one.
+            if (!Directory.Exists("Bots")) Directory.CreateDirectory("Bots");
+
+            // Load all the bot shortcuts in the Bots folder.
             var botFilePaths = Directory.GetFiles("bots", "*.lnk", SearchOption.AllDirectories);
             foreach (var file in botFilePaths) Log($"Found {file}!");
             return botFilePaths;
@@ -80,11 +87,7 @@ namespace BotRestarter
         /// Logs a message to the console with a red color.
         /// </summary>
         /// <param name="message">The message that will be printed to the console.</param>
-        private async Task ShowErrorMessageAsync(string message)
-        {
-            Log(message, ConsoleColor.Red);
-            await Task.Delay(TimeSpan.FromSeconds(30)).ConfigureAwait(false);
-        }
+        private void ShowErrorMessage(string message) => Log(message, ConsoleColor.Red);
 
 
         /// <summary>
