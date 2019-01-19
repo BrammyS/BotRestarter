@@ -1,7 +1,8 @@
 ﻿using DiscordBotRestarter.Logger;
 using DiscordBotRestarter.Logger.Interfaces;
 using Unity;
-using Unity.Injection;
+using Unity.Lifetime;
+using Unity.Resolution;
 
 namespace BotRestarter
 {
