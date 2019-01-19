@@ -8,7 +8,7 @@ namespace BotRestarter.Logger
 
 
         /// <inheritdoc />
-        public void Log(string message, ConsoleColor color = ConsoleColor.Gray)
+        public void Log(string message, ConsoleColor color = ConsoleColor.DarkGray)
         {
             Console.ForegroundColor = color;
             Console.WriteLine($"{DateTime.Now:hh:mm:ss.fff} : " + message);
