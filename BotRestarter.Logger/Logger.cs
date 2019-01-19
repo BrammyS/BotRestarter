@@ -1,7 +1,7 @@
 ﻿using System;
-using DiscordBotRestarter.Logger.Interfaces;
+using BotRestarter.Logger.Interfaces;
 
-namespace DiscordBotRestarter.Logger
+namespace BotRestarter.Logger
 {
     public class Logger : ILogger
     {

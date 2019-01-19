@@ -1,5 +1,4 @@
-﻿using DiscordBotRestarter.Logger;
-using DiscordBotRestarter.Logger.Interfaces;
+﻿using BotRestarter.Logger.Interfaces;
 using Unity;
 using Unity.Lifetime;
 using Unity.Resolution;
@@ -26,7 +25,7 @@ namespace BotRestarter
         public static void RegisterTypes()
         {
             container = new UnityContainer();
-            container.RegisterType<ILogger, Logger>(new PerThreadLifetimeManager());
+            container.RegisterType<ILogger, Logger.Logger>(new PerThreadLifetimeManager());
         }
 
 
