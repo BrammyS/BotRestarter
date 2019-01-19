@@ -8,10 +8,11 @@ namespace BotRestarter.Logger
 
 
         /// <inheritdoc />
-        public void Log(string message, ConsoleColor color = ConsoleColor.DarkGray)
+        public void Log(string message, ConsoleColor color = ConsoleColor.DarkGray, bool hasTimestamp = true)
         {
             Console.ForegroundColor = color;
-            Console.WriteLine($"{DateTime.Now:hh:mm:ss.fff} : " + message);
+            if(hasTimestamp) Console.WriteLine($"{DateTime.Now:hh:mm:ss.fff} : " + message);
+            else Console.WriteLine(message);
             Console.ResetColor();
         }
     }
