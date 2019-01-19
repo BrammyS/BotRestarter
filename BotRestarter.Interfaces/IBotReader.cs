@@ -16,7 +16,7 @@
         /// <summary>
         /// Stores a bot from the ConcurrentDictionary.
         /// </summary>
-        /// <param name="key">A <see cref="string"/> value of the you are trying to find. This should be the filename.</param>
+        /// <param name="key">A <see cref="string"/> value of the you are trying to find. This should be the filename or the filepath of the bot.</param>
         /// <param name="shouldRestart">The <see cref="bool"/> if the bot should keep restarting when it closes.</param>
         void StoreBot(string key, bool shouldRestart);
 
@@ -24,7 +24,7 @@
         /// <summary>
         /// Gets a <see cref="bool"/> value whether a bot should keep restarting.
         /// </summary>
-        /// <param name="key">A <see cref="string"/> value of the bot you are trying to find. This should be the filename of the bot.</param>
+        /// <param name="key">A <see cref="string"/> value of the bot you are trying to find. This should be the filename or the filepath of the bot.</param>
         /// <returns>
         /// A <see cref="bool"/> value whether a bot should keep restarting.
         /// </returns>
@@ -34,7 +34,7 @@
         /// <summary>
         /// Removes a bot from the ConcurrentDictionary.
         /// </summary>
-        /// <param name="key">A <see cref="string"/> value of the bot you are trying to find. This should be the filename of the bot.</param>
+        /// <param name="key">A <see cref="string"/> value of the bot you are trying to find. This should be the filename or the filepath of the bot.</param>
         /// <returns>
         /// A <see cref="bool"/> value whether a bot should keep restarting.
         /// </returns>
