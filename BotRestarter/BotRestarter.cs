@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,6 +13,7 @@ namespace BotRestarter
     {
         private readonly ILogger _logger;
         private readonly ConsoleReSetterTimer _consoleReSetterTimer;
+        private readonly IBotReader _botReader;
 
 
         /// <summary>
@@ -21,16 +21,19 @@ namespace BotRestarter
         /// </summary>
         /// <param name="logger">The <see cref="ILogger"/> that will be used to log messages to the console.</param>
         /// <param name="consoleReSetterTimer">The <see cref="ConsoleReSetterTimer"/> that will be used.</param>
-        public BotRestarter(ILogger logger, ConsoleReSetterTimer consoleReSetterTimer)
+        /// <param name="botReader">The <see cref="IBotReader"/> that will be used to load all the bots and check for should restart values.</param>
+        public BotRestarter(ILogger logger, ConsoleReSetterTimer consoleReSetterTimer, IBotReader botReader)
         {
             _logger = logger;
             _consoleReSetterTimer = consoleReSetterTimer;
+            _botReader = botReader;
         }
+
 
         /// <inheritdoc />
         public async Task StartAsync()
         {
-            var botFilePaths = GetFiles();
+            var botFilePaths = _botReader.GetBotFiles();
             if (!botFilePaths.Any()) ShowErrorMessage("No bots where found!");
 
             // Loop trough all the bots and start them.
@@ -42,8 +45,19 @@ namespace BotRestarter
 
             await StartTimers().ConfigureAwait(false);
 
-            // Await the task so the program doesn't close. 
-            await Task.Delay(-1).ConfigureAwait(false);
+            while (true)
+            {
+                var userInput = Console.ReadLine(); 
+                if(userInput == "exit") break;
+                if (userInput == null) continue;
+                switch (userInput.ToLower())
+                {
+                    case "bots":
+                        break;
+                    case "close":
+                        break;
+                }
+            }
         }
 
 
@@ -78,32 +92,12 @@ namespace BotRestarter
 
 
         /// <summary>
-        /// Loads all the bot file paths in the bots folder.
-        /// </summary>
-        /// <returns>
-        /// A array of strings containing the file paths.
-        /// </returns>
-        private string[] GetFiles()
-        {
-
-            // If Bots directory doesn't exist, create one.
-            if (!Directory.Exists("Bots")) Directory.CreateDirectory("Bots");
-
-            // Load all the bot shortcuts in the Bots folder.
-            var botFilePaths = Directory.GetFiles("bots", "*.lnk", SearchOption.AllDirectories);
-            foreach (var file in botFilePaths) _logger.Log($"Found {file}!");
-            return botFilePaths;
-        }
-
-
-        /// <summary>
         /// Starts all the timers.
         /// </summary>
         private async Task StartTimers()
         {
             await _consoleReSetterTimer.TimerAsync().ConfigureAwait(false);
         }
-
 
 
         /// <summary>

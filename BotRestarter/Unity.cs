@@ -29,6 +29,7 @@ namespace BotRestarter
             container = new UnityContainer();
             container.RegisterType<ILogger, Logger.Logger>(new PerThreadLifetimeManager());
             container.RegisterSingleton<IBotRestarter, BotRestarter>();
+            container.RegisterSingleton<IBotReader, BotReader>();
             container.RegisterSingleton<ConsoleReSetterTimer>();
         }
 

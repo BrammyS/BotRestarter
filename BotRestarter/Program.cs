@@ -3,7 +3,7 @@ using BotRestarter.Interfaces;
 
 namespace BotRestarter
 {
-    public class Program
+    public static class Program
     {
 
         private static async Task Main()
