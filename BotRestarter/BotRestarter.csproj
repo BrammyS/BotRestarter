@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BotRestarter.Interfaces\BotRestarter.Interfaces.csproj" />
     <ProjectReference Include="..\BotRestarter.Logger\BotRestarter.Logger.csproj" />
   </ItemGroup>
 

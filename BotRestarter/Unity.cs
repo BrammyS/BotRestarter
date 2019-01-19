@@ -1,4 +1,6 @@
-﻿using BotRestarter.Logger.Interfaces;
+﻿using BotRestarter.Interfaces;
+using BotRestarter.Logger.Interfaces;
+using BotRestarter.Timers;
 using Unity;
 using Unity.Lifetime;
 using Unity.Resolution;
@@ -26,6 +28,8 @@ namespace BotRestarter
         {
             container = new UnityContainer();
             container.RegisterType<ILogger, Logger.Logger>(new PerThreadLifetimeManager());
+            container.RegisterSingleton<IBotRestarter, BotRestarter>();
+            container.RegisterSingleton<ConsoleReSetterTimer>();
         }
 
 
