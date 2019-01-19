@@ -1,4 +1,6 @@
-﻿namespace BotRestarter.Interfaces
+﻿using System.Collections.Generic;
+
+namespace BotRestarter.Interfaces
 {
     public interface IBotReader
     {
@@ -39,5 +41,15 @@
         /// A <see cref="bool"/> value whether a bot should keep restarting.
         /// </returns>
         void RemoveBot(string key);
+
+
+        /// <summary>
+        /// Gets all the bot in the ConcurrentDictionary.
+        /// </summary>
+        /// <returns>
+        /// A list of <see cref="KeyValuePair{TKey,TValue}"/>.
+        /// </returns>
+        List<KeyValuePair<string, bool>> GetAlBots();
+
     }
 }

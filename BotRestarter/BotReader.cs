@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using BotRestarter.Interfaces;
 using BotRestarter.Logger.Interfaces;
 
@@ -49,6 +51,12 @@ namespace BotRestarter
             if(!Bots.TryAdd(key, shouldRestart)) _logger.Log($"Failed to add ShouldRestart value with the key: {key} from the dictionary", ConsoleColor.Red);
         }
 
+
+        /// <inheritdoc />
+        public List<KeyValuePair<string, bool>> GetAlBots()
+        {
+            return Bots.ToList();
+        }
 
         /// <inheritdoc />
         public bool GetShouldRestartBot(string key)

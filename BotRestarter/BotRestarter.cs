@@ -39,7 +39,8 @@ namespace BotRestarter
             // Loop trough all the bots and start them.
             foreach (var bot in botFilePaths)
             {
-                var thread = new Thread(() => StartBot(bot));
+                _botReader.StoreBot(bot, false);
+                var thread = new Thread(async () => await StartBotAsync(bot).ConfigureAwait(false));
                 thread.Start();
             }
 
@@ -53,8 +54,9 @@ namespace BotRestarter
                 switch (userInput.ToLower())
                 {
                     case "bots":
+                        _botReader.GetAlBots().ForEach(x=>_logger.Log($"{x.Key} | Should restart: `{x.Value}`", ConsoleColor.Gray, false));
                         break;
-                    case "close":
+                    case "close bot":
                         break;
                 }
             }
@@ -65,27 +67,31 @@ namespace BotRestarter
         /// Starts a bot with the provided file path.
         /// And it keeps restarting the bot if it closes.
         /// </summary>
-        /// <param name="botFilePath">The filepath of the bot that will be started.</param>
-        private void StartBot(string botFilePath)
+        /// <param name="botFileName">The filepath of the bot that will be started.</param>
+        private async Task StartBotAsync(string botFileName)
         {
+            var botProcess = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    CreateNoWindow = false,
+                    WindowStyle = ProcessWindowStyle.Minimized,
+                    FileName = botFileName,
+                    UseShellExecute = true
+                }
+            };
 
             // Keep restating the bot if it closes.
             while (true)
             {
-                var botProcess = new Process
+                if (_botReader.GetShouldRestartBot(botFileName))
                 {
-                    StartInfo = new ProcessStartInfo
-                    {
-                        CreateNoWindow = false,
-                        WindowStyle = ProcessWindowStyle.Minimized,
-                        FileName = botFilePath,
-                        UseShellExecute = true
-                    }
-                };
-                botProcess.Start();
-                _logger.Log($"{botFilePath} opened.");
-                botProcess.WaitForExit();
-                _logger.Log($"{botFilePath} closed.");
+                    botProcess.Start();
+                    _logger.Log($"{botFileName} opened.");
+                    botProcess.WaitForExit();
+                    _logger.Log($"{botFileName} closed.");
+                }
+                else await Task.Delay(TimeSpan.FromSeconds(1.5)).ConfigureAwait(false);
             }
             // ReSharper disable once FunctionNeverReturns
         }
