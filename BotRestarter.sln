@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotRestarter", "BotRestarter\BotRestarter.csproj", "{47144F77-BF3C-4803-B058-36595FC8F7EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotRestarter", "BotRestarter\BotRestarter.csproj", "{47144F77-BF3C-4803-B058-36595FC8F7EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asdasdasdasd", "DiscordBotRestarter.Logger\asdasdasdasd.csproj", "{3664B1AD-DBDC-4367-8D77-6033A7D74D8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asdasdas", "DiscordBotRestarter.Logger.Interfaces\asdasdas.csproj", "{5E06A148-B2DD-4A26-A44C-4F281E785B0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotRestarter.Logger", "BotRestarter.Logger\BotRestarter.Logger.csproj", "{2D8E22FD-6FD2-47A9-A943-FB50D6B8F5EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotRestarter.Logger.Interfaces", "BotRestarter.Logger.Interfaces\BotRestarter.Logger.Interfaces.csproj", "{EB03D873-D0BD-4B38-9BC5-847AEE398425}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{47144F77-BF3C-4803-B058-36595FC8F7EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47144F77-BF3C-4803-B058-36595FC8F7EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47144F77-BF3C-4803-B058-36595FC8F7EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3664B1AD-DBDC-4367-8D77-6033A7D74D8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3664B1AD-DBDC-4367-8D77-6033A7D74D8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3664B1AD-DBDC-4367-8D77-6033A7D74D8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3664B1AD-DBDC-4367-8D77-6033A7D74D8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E06A148-B2DD-4A26-A44C-4F281E785B0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E06A148-B2DD-4A26-A44C-4F281E785B0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E06A148-B2DD-4A26-A44C-4F281E785B0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E06A148-B2DD-4A26-A44C-4F281E785B0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D8E22FD-6FD2-47A9-A943-FB50D6B8F5EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D8E22FD-6FD2-47A9-A943-FB50D6B8F5EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D8E22FD-6FD2-47A9-A943-FB50D6B8F5EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D8E22FD-6FD2-47A9-A943-FB50D6B8F5EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB03D873-D0BD-4B38-9BC5-847AEE398425}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB03D873-D0BD-4B38-9BC5-847AEE398425}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB03D873-D0BD-4B38-9BC5-847AEE398425}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB03D873-D0BD-4B38-9BC5-847AEE398425}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
