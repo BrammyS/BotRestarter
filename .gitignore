@@ -1,5 +1,8 @@
 BotRestarter/bin/
 BotRestarter/obj/
-
+BotRestarter.Logger/bin/
+BotRestarter.Logger/obj/
+BotRestarter.Logger.Interfaces/bin
+BotRestarter.Logger.Interfaces/obj
 packages/
 .vs/
