@@ -54,9 +54,45 @@ namespace BotRestarter
                 switch (userInput.ToLower())
                 {
                     case "bots":
-                        _botReader.GetAlBots().ForEach(x=>_logger.Log($"{x.Key} | Should restart: `{x.Value}`", ConsoleColor.Gray, false));
-                        break;
-                    case "close bot":
+                        var bots = _botReader.GetAlBots();
+                        for (var i = 0; i < bots.Count; i++)
+                        {
+                            _logger.Log($"{i} | {bots[i].Key} | Should restart: `{bots[i].Value}`", ConsoleColor.Gray, false);
+                        }
+                        _logger.Log("Type the number of the bot where you want to change the restart settings. Type `c` to cancel.");
+                        var hasCorrectInput = false;
+                        while (!hasCorrectInput)
+                        {
+                            var input = Console.ReadLine();
+                            if (input != null && input.ToLower().Equals("c")) hasCorrectInput = true;
+                            else if(input != null && int.TryParse(input.ToLower(), out var option))
+                            {
+                                hasCorrectInput = true;
+                                _logger.Log("Please select one of the following options for the auto restart.\r\n" +
+                                            "true or false. Type `c` to cancel.", ConsoleColor.Gray, false);
+                                var hasCorrectSetting = false;
+                                while (!hasCorrectSetting)
+                                {
+                                    var settingInput = Console.ReadLine();
+                                    if (settingInput != null && settingInput.ToLower().Equals("c")) hasCorrectSetting = true;
+                                    else if(settingInput != null && bool.TryParse(settingInput, out var setting))
+                                    {
+                                        _botReader.StoreBot(bots[option].Key, setting);
+                                        _logger.Log($"Auto restart setting changed to {setting} for bot {bots[option].Key}", ConsoleColor.Gray, false);
+                                    }
+                                    else
+                                    {
+                                        _logger.Log("That's not a correct option.", ConsoleColor.Gray, false);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                _logger.Log("That's not a correct option.", ConsoleColor.Gray, false);
+                            }
+                        }
+
+
                         break;
                 }
             }
