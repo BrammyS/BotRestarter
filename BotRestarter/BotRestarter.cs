@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BotRestarter.Interfaces;
+using BotRestarter.Logger.Commands;
 using BotRestarter.Logger.Interfaces;
 using BotRestarter.Timers;
 
@@ -14,6 +15,7 @@ namespace BotRestarter
         private readonly ILogger _logger;
         private readonly ConsoleReSetterTimer _consoleReSetterTimer;
         private readonly IBotReader _botReader;
+        private readonly IConsoleCommands _commands;
 
 
         /// <summary>
@@ -22,11 +24,13 @@ namespace BotRestarter
         /// <param name="logger">The <see cref="ILogger"/> that will be used to log messages to the console.</param>
         /// <param name="consoleReSetterTimer">The <see cref="ConsoleReSetterTimer"/> that will be used.</param>
         /// <param name="botReader">The <see cref="IBotReader"/> that will be used to load all the bots and check for should restart values.</param>
-        public BotRestarter(ILogger logger, ConsoleReSetterTimer consoleReSetterTimer, IBotReader botReader)
+        /// <param name="commands">The <see cref="IConsoleCommands"/> that will be used.</param>
+        public BotRestarter(ILogger logger, ConsoleReSetterTimer consoleReSetterTimer, IBotReader botReader, IConsoleCommands commands)
         {
             _logger = logger;
             _consoleReSetterTimer = consoleReSetterTimer;
             _botReader = botReader;
+            _commands = commands;
         }
 
 
@@ -39,7 +43,7 @@ namespace BotRestarter
             // Loop trough all the bots and start them.
             foreach (var bot in botFilePaths)
             {
-                _botReader.StoreBot(bot, false);
+                _botReader.StoreBot(bot, true);
                 var thread = new Thread(async () => await StartBotAsync(bot).ConfigureAwait(false));
                 thread.Start();
             }
@@ -54,45 +58,7 @@ namespace BotRestarter
                 switch (userInput.ToLower())
                 {
                     case "bots":
-                        var bots = _botReader.GetAlBots();
-                        for (var i = 0; i < bots.Count; i++)
-                        {
-                            _logger.Log($"{i} | {bots[i].Key} | Should restart: `{bots[i].Value}`", ConsoleColor.Gray, false);
-                        }
-                        _logger.Log("Type the number of the bot where you want to change the restart settings. Type `c` to cancel.");
-                        var hasCorrectInput = false;
-                        while (!hasCorrectInput)
-                        {
-                            var input = Console.ReadLine();
-                            if (input != null && input.ToLower().Equals("c")) hasCorrectInput = true;
-                            else if(input != null && int.TryParse(input.ToLower(), out var option))
-                            {
-                                hasCorrectInput = true;
-                                _logger.Log("Please select one of the following options for the auto restart.\r\n" +
-                                            "true or false. Type `c` to cancel.", ConsoleColor.Gray, false);
-                                var hasCorrectSetting = false;
-                                while (!hasCorrectSetting)
-                                {
-                                    var settingInput = Console.ReadLine();
-                                    if (settingInput != null && settingInput.ToLower().Equals("c")) hasCorrectSetting = true;
-                                    else if(settingInput != null && bool.TryParse(settingInput, out var setting))
-                                    {
-                                        _botReader.StoreBot(bots[option].Key, setting);
-                                        _logger.Log($"Auto restart setting changed to {setting} for bot {bots[option].Key}", ConsoleColor.Gray, false);
-                                    }
-                                    else
-                                    {
-                                        _logger.Log("That's not a correct option.", ConsoleColor.Gray, false);
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                _logger.Log("That's not a correct option.", ConsoleColor.Gray, false);
-                            }
-                        }
-
-
+                        _commands.BotsCommand();
                         break;
                 }
             }
