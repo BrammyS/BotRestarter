@@ -67,6 +67,7 @@ namespace BotRestarter.Commands
                         {
                             _botReader.StoreBot(bots[option].Key, setting);
                             _logger.Log($"Auto restart setting changed to {setting} for bot {bots[option].Key}", ConsoleColor.Gray, false);
+                            hasCorrectSetting = true;
                         }
                         else _logger.Log("That's not a correct option.", ConsoleColor.Gray, false);
                     }
